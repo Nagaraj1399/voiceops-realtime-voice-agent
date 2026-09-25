@@ -1,0 +1,7 @@
+{
+  "name": "VoiceOps AI",
+  "description": "Real-time voice intelligence for business operations. Turn natural conversations into verified business actions.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
