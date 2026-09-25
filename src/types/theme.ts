@@ -1,4 +1,4 @@
-export type AppTheme = 'obsidian' | 'midnight' | 'slate' | 'oled' | 'light';
+export type AppTheme = 'light' | 'obsidian' | 'midnight' | 'slate' | 'oled';
 
 export interface ThemeConfig {
   id: AppTheme;
@@ -14,10 +14,22 @@ export interface ThemeConfig {
 }
 
 export const THEME_CONFIGS: Record<AppTheme, ThemeConfig> = {
+  light: {
+    id: 'light',
+    name: 'Clean Pure White (Default)',
+    tagline: 'High-contrast, crisp white daytime enterprise workspace',
+    bgColor: '#ffffff',
+    cardBg: '#ffffff',
+    border: '#e2e8f0',
+    textPrimary: '#0f172a',
+    textSecondary: '#64748b',
+    previewColor: '#4f46e5',
+    ambientGradient: 'none',
+  },
   obsidian: {
     id: 'obsidian',
     name: 'Obsidian Space',
-    tagline: 'Deep space dark with soft indigo glow (Default)',
+    tagline: 'Deep space dark with soft indigo glow',
     bgColor: '#08090d',
     cardBg: '#111218',
     border: '#232634',
@@ -61,17 +73,5 @@ export const THEME_CONFIGS: Record<AppTheme, ThemeConfig> = {
     textSecondary: '#a3a3a3',
     previewColor: '#a855f7',
     ambientGradient: 'none',
-  },
-  light: {
-    id: 'light',
-    name: 'Clean Studio Light',
-    tagline: 'Clean high-contrast daytime workspace with slate accents',
-    bgColor: '#f8fafc',
-    cardBg: '#ffffff',
-    border: '#e2e8f0',
-    textPrimary: '#0f172a',
-    textSecondary: '#64748b',
-    previewColor: '#4f46e5',
-    ambientGradient: 'radial-gradient(circle at 50% -10%, rgba(224, 231, 255, 0.8) 0%, transparent 75%)',
   },
 };

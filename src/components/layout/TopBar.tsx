@@ -37,53 +37,53 @@ export const TopBar: React.FC<TopBarProps> = ({
   };
 
   return (
-    <header className="h-16 px-3 sm:px-6 bg-neutral-950/85 backdrop-blur-md border-b border-neutral-800/80 flex items-center justify-between shrink-0 select-none z-20">
+    <header className="h-16 px-3 sm:px-6 bg-white/95 backdrop-blur-md border-b border-slate-200 flex items-center justify-between shrink-0 select-none z-20">
       {/* Zone 1: Mobile Hamburger & Wordmark & Section Breadcrumb */}
       <div className="flex items-center gap-2 sm:gap-3 min-w-0">
         {onOpenMenu && (
           <button
             onClick={onOpenMenu}
             aria-label="Open navigation menu"
-            className="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center -ml-1 text-neutral-400 hover:text-white rounded-lg active:bg-neutral-800"
+            className="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center -ml-1 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 active:bg-slate-200 transition-colors"
           >
             <Menu className="w-5 h-5" />
           </button>
         )}
 
         <div className="flex items-center gap-1.5 sm:gap-2 truncate">
-          <span className="text-sm font-bold tracking-tight text-neutral-100 shrink-0">
+          <span className="text-sm font-bold tracking-tight text-slate-900 shrink-0">
             VoiceOps AI
           </span>
-          <span className="text-neutral-600 hidden xs:inline">/</span>
-          <span className="text-xs text-neutral-400 font-medium truncate hidden sm:inline">
+          <span className="text-slate-300 hidden xs:inline">/</span>
+          <span className="text-xs text-slate-500 font-medium truncate hidden sm:inline">
             {tabTitles[activeTab]}
           </span>
         </div>
       </div>
 
       {/* Zone 2: Desktop Navigation Links */}
-      <nav className="hidden lg:flex items-center gap-6 text-xs font-medium text-neutral-400">
+      <nav className="hidden lg:flex items-center gap-6 text-xs font-medium text-slate-600">
         <button
           onClick={() => onNavigate('overview')}
-          className={`hover:text-neutral-200 transition-colors ${activeTab === 'overview' ? 'text-white font-semibold' : ''}`}
+          className={`hover:text-slate-900 transition-colors ${activeTab === 'overview' ? 'text-indigo-600 font-semibold' : ''}`}
         >
           Overview
         </button>
         <button
           onClick={() => onNavigate('live')}
-          className={`hover:text-neutral-200 transition-colors ${activeTab === 'live' ? 'text-white font-semibold' : ''}`}
+          className={`hover:text-slate-900 transition-colors ${activeTab === 'live' ? 'text-indigo-600 font-semibold' : ''}`}
         >
           Live Agent
         </button>
         <button
           onClick={() => onNavigate('actions')}
-          className={`hover:text-neutral-200 transition-colors ${activeTab === 'actions' ? 'text-white font-semibold' : ''}`}
+          className={`hover:text-slate-900 transition-colors ${activeTab === 'actions' ? 'text-indigo-600 font-semibold' : ''}`}
         >
           Business Actions
         </button>
         <button
           onClick={() => onNavigate('architecture')}
-          className={`hover:text-neutral-200 transition-colors ${activeTab === 'architecture' ? 'text-white font-semibold' : ''}`}
+          className={`hover:text-slate-900 transition-colors ${activeTab === 'architecture' ? 'text-indigo-600 font-semibold' : ''}`}
         >
           Architecture
         </button>
@@ -92,15 +92,15 @@ export const TopBar: React.FC<TopBarProps> = ({
       {/* Zone 3: Primary Actions & Latency Indicator */}
       <div className="flex items-center gap-2 sm:gap-3 shrink-0">
         {/* Latency Metric */}
-        <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-neutral-900 border border-neutral-800 text-neutral-300 text-xs font-mono tabular-nums">
-          <Gauge className="w-3.5 h-3.5 text-indigo-400" />
+        <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-slate-700 text-xs font-mono tabular-nums">
+          <Gauge className="w-3.5 h-3.5 text-indigo-600" />
           <span className="hidden md:inline">420 ms avg latency</span>
           <span className="md:hidden">420 ms</span>
         </div>
 
         {/* Security indicator */}
-        <div className="hidden xl:flex items-center gap-1.5 px-2 py-1 text-emerald-400 text-xs font-mono">
-          <ShieldCheck className="w-3.5 h-3.5" />
+        <div className="hidden xl:flex items-center gap-1.5 px-2 py-1 text-emerald-700 text-xs font-mono">
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
           <span>API Key Encrypted</span>
         </div>
 
@@ -111,9 +111,9 @@ export const TopBar: React.FC<TopBarProps> = ({
               onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
               title="Change Background Theme"
               aria-label="Change Background Theme"
-              className="min-h-[44px] min-w-[44px] sm:min-w-0 px-2.5 py-1.5 text-xs font-medium text-neutral-300 hover:text-white bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 rounded-lg flex items-center gap-1.5 transition-colors active:scale-95"
+              className="min-h-[44px] min-w-[44px] sm:min-w-0 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 rounded-lg flex items-center gap-1.5 transition-colors active:scale-95"
             >
-              <Palette className="w-4 h-4 text-indigo-400" />
+              <Palette className="w-4 h-4 text-indigo-600" />
               <span className="hidden sm:inline capitalize font-mono text-[11px]">
                 {THEME_CONFIGS[currentTheme]?.name.split(' ')[0] || 'Theme'}
               </span>
@@ -125,8 +125,8 @@ export const TopBar: React.FC<TopBarProps> = ({
                   className="fixed inset-0 z-30"
                   onClick={() => setIsThemeMenuOpen(false)}
                 />
-                <div className="absolute right-0 mt-2 w-64 p-2 bg-neutral-900 border border-neutral-800 rounded-xl shadow-2xl z-40 space-y-1 animate-fadeIn">
-                  <div className="px-2.5 py-1.5 border-b border-neutral-800 text-[11px] font-mono text-neutral-400 uppercase tracking-wider">
+                <div className="absolute right-0 mt-2 w-64 p-2 bg-white border border-slate-200 rounded-xl shadow-xl z-40 space-y-1 animate-fadeIn">
+                  <div className="px-2.5 py-1.5 border-b border-slate-100 text-[11px] font-mono text-slate-400 uppercase tracking-wider">
                     Background Theme
                   </div>
                   {(Object.keys(THEME_CONFIGS) as AppTheme[]).map((tKey) => {
@@ -141,23 +141,23 @@ export const TopBar: React.FC<TopBarProps> = ({
                         }}
                         className={`w-full flex items-center justify-between p-2 rounded-lg text-left text-xs transition-colors ${
                           isSelected
-                            ? 'bg-neutral-800 text-white font-semibold'
-                            : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white'
+                            ? 'bg-indigo-50 text-indigo-900 font-semibold'
+                            : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
                         }`}
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
                           <span
-                            className="w-3.5 h-3.5 rounded-full border border-neutral-700 shrink-0 shadow-sm"
+                            className="w-3.5 h-3.5 rounded-full border border-slate-300 shrink-0 shadow-xs"
                             style={{ backgroundColor: cfg.previewColor }}
                           />
                           <div className="truncate">
-                            <span className="block truncate font-medium text-xs">{cfg.name}</span>
-                            <span className="block text-[10px] text-neutral-400 truncate font-normal">
+                            <span className="block truncate font-medium text-xs text-slate-800">{cfg.name}</span>
+                            <span className="block text-[10px] text-slate-500 truncate font-normal">
                               {cfg.tagline}
                             </span>
                           </div>
                         </div>
-                        {isSelected && <Check className="w-3.5 h-3.5 text-indigo-400 shrink-0 ml-1" />}
+                        {isSelected && <Check className="w-3.5 h-3.5 text-indigo-600 shrink-0 ml-1" />}
                       </button>
                     );
                   })}

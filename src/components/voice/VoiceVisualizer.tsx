@@ -44,22 +44,22 @@ export const VoiceVisualizer: React.FC<VoiceVisualizerProps> = ({ levels, state,
             ? 'bg-amber-500/15 opacity-80'
             : state === 'interrupted'
             ? 'bg-rose-500/20 opacity-100'
-            : 'bg-neutral-800/20 opacity-20'
+            : 'bg-indigo-50/40 opacity-20'
         }`} 
       />
 
       {/* Waveform bars */}
       <div className="flex items-center justify-center gap-1.5 h-16 w-full max-w-md z-10">
         {bars.map((bar) => {
-          let barColor = 'bg-neutral-700';
+          let barColor = 'bg-slate-300';
           if (state === 'speaking') {
-            barColor = 'bg-indigo-400';
+            barColor = 'bg-indigo-600';
           } else if (state === 'listening') {
-            barColor = 'bg-emerald-400';
+            barColor = 'bg-emerald-500';
           } else if (state === 'thinking') {
-            barColor = 'bg-amber-400';
+            barColor = 'bg-amber-500';
           } else if (state === 'interrupted') {
-            barColor = 'bg-rose-400';
+            barColor = 'bg-rose-500';
           }
 
           return (

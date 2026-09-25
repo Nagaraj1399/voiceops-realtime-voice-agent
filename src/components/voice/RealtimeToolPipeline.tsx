@@ -72,12 +72,12 @@ export const RealtimeToolPipeline: React.FC<RealtimeToolPipelineProps> = ({
   const currentIndex = getStageIndex(currentStage);
 
   return (
-    <div className={`p-4 bg-neutral-900/40 border border-neutral-800 rounded-xl ${className}`}>
+    <div className={`p-4 bg-white border border-slate-200 rounded-xl shadow-xs ${className}`}>
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
+        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
           Real-Time Voice Pipeline
         </span>
-        <span className="text-[11px] font-mono text-neutral-400">
+        <span className="text-[11px] font-mono text-slate-500">
           AssemblyAI Voice Agent Architecture
         </span>
       </div>
@@ -93,15 +93,15 @@ export const RealtimeToolPipeline: React.FC<RealtimeToolPipelineProps> = ({
               key={step.id}
               className={`relative flex flex-col items-center justify-center p-2.5 rounded-lg border transition-all duration-300 text-center ${
                 isActive
-                  ? 'bg-indigo-950/40 border-indigo-500/60 shadow-lg shadow-indigo-950/40 ring-1 ring-indigo-500/30'
+                  ? 'bg-indigo-50 border-indigo-400 shadow-xs ring-1 ring-indigo-400/40'
                   : isPassed
-                  ? 'bg-neutral-900/80 border-neutral-700 text-neutral-300'
-                  : 'bg-neutral-950/40 border-neutral-800/80 text-neutral-500'
+                  ? 'bg-slate-50 border-slate-200 text-slate-800'
+                  : 'bg-white border-slate-200 text-slate-400'
               }`}
             >
               {/* Arrow connector for non-last items */}
               {idx < steps.length - 1 && (
-                <div className="hidden lg:block absolute -right-2 top-1/2 -translate-y-1/2 z-10 text-neutral-600 pointer-events-none">
+                <div className="hidden lg:block absolute -right-2 top-1/2 -translate-y-1/2 z-10 text-slate-300 pointer-events-none">
                   <ArrowRight className="w-3 h-3" />
                 </div>
               )}
@@ -111,8 +111,8 @@ export const RealtimeToolPipeline: React.FC<RealtimeToolPipelineProps> = ({
                   isActive
                     ? 'bg-indigo-600 text-white animate-pulse'
                     : isPassed
-                    ? 'bg-emerald-950/60 text-emerald-400 border border-emerald-800/60'
-                    : 'bg-neutral-800 text-neutral-400'
+                    ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                    : 'bg-slate-100 text-slate-400'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -120,12 +120,12 @@ export const RealtimeToolPipeline: React.FC<RealtimeToolPipelineProps> = ({
 
               <span
                 className={`text-[11px] font-mono font-semibold tracking-tight uppercase ${
-                  isActive ? 'text-indigo-300' : isPassed ? 'text-neutral-200' : 'text-neutral-400'
+                  isActive ? 'text-indigo-700' : isPassed ? 'text-slate-800' : 'text-slate-400'
                 }`}
               >
                 {step.label}
               </span>
-              <span className="text-[10px] text-neutral-400 leading-tight">
+              <span className="text-[10px] text-slate-500 leading-tight">
                 {step.sublabel}
               </span>
             </div>

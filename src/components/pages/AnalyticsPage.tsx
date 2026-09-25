@@ -53,10 +53,10 @@ export const AnalyticsPage: React.FC = () => {
     <div className="space-y-6 pb-12">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-neutral-100">
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">
           Voice Intelligence Analytics
         </h1>
-        <p className="text-xs text-neutral-400 mt-0.5">
+        <p className="text-xs text-slate-600 mt-0.5">
           Real-time performance metrics, schema tool utilization, and conversational latency benchmarks.
         </p>
       </div>
@@ -68,16 +68,16 @@ export const AnalyticsPage: React.FC = () => {
           return (
             <div
               key={m.label}
-              className="p-5 bg-neutral-900/40 border border-neutral-800 rounded-xl space-y-2"
+              className="p-5 bg-white border border-slate-200 rounded-xl space-y-2 shadow-xs"
             >
-              <div className="flex items-center justify-between text-neutral-400">
+              <div className="flex items-center justify-between text-slate-500">
                 <span className="text-xs font-medium">{m.label}</span>
-                <Icon className="w-4 h-4 text-indigo-400" />
+                <Icon className="w-4 h-4 text-indigo-600" />
               </div>
-              <div className="text-3xl font-extrabold text-neutral-100 font-mono tracking-tight tabular-nums">
+              <div className="text-3xl font-extrabold text-slate-900 font-mono tracking-tight tabular-nums">
                 {m.value}
               </div>
-              <div className="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
+              <div className="text-[11px] font-mono text-emerald-700 flex items-center gap-1 font-semibold">
                 <span>{m.sub}</span>
               </div>
             </div>
@@ -88,24 +88,24 @@ export const AnalyticsPage: React.FC = () => {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Chart 1: Conversation & Action Volume (Col 1-7) */}
-        <div className="lg:col-span-7 p-6 bg-neutral-900/40 border border-neutral-800 rounded-xl space-y-4">
+        <div className="lg:col-span-7 p-6 bg-white border border-slate-200 rounded-xl space-y-4 shadow-xs">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-sm font-semibold text-neutral-100">
+              <h2 className="text-sm font-semibold text-slate-900">
                 Conversation & Action Volume (Last 7 Days)
               </h2>
-              <span className="text-[11px] text-neutral-400 font-mono">
+              <span className="text-[11px] text-slate-500 font-mono">
                 Duplex Voice Sessions vs Executed System Actions
               </span>
             </div>
 
             <div className="flex items-center gap-3 text-xs font-mono">
-              <span className="flex items-center gap-1 text-neutral-400">
-                <span className="w-2.5 h-2.5 rounded-sm bg-neutral-700" />
+              <span className="flex items-center gap-1 text-slate-600">
+                <span className="w-2.5 h-2.5 rounded-sm bg-slate-300" />
                 <span>Sessions</span>
               </span>
-              <span className="flex items-center gap-1 text-indigo-300">
-                <span className="w-2.5 h-2.5 rounded-sm bg-indigo-500" />
+              <span className="flex items-center gap-1 text-indigo-700 font-semibold">
+                <span className="w-2.5 h-2.5 rounded-sm bg-indigo-600" />
                 <span>Actions</span>
               </span>
             </div>
@@ -113,7 +113,7 @@ export const AnalyticsPage: React.FC = () => {
 
           {/* SVG Bar Chart */}
           <div className="pt-4">
-            <div className="flex items-end justify-between h-48 gap-3 px-2 border-b border-neutral-800">
+            <div className="flex items-end justify-between h-48 gap-3 px-2 border-b border-slate-200">
               {volumeData.map((d) => {
                 const sessionHeightPct = (d.count / maxVolume) * 100;
                 const actionHeightPct = (d.actions / maxVolume) * 100;
@@ -123,18 +123,18 @@ export const AnalyticsPage: React.FC = () => {
                     <div className="w-full flex items-end justify-center gap-1 h-full">
                       {/* Session bar */}
                       <div
-                        className="w-1/2 bg-neutral-800 hover:bg-neutral-700 rounded-t transition-all"
+                        className="w-1/2 bg-slate-200 hover:bg-slate-300 rounded-t transition-all"
                         style={{ height: `${sessionHeightPct}%` }}
                         title={`${d.count} sessions`}
                       />
                       {/* Action bar */}
                       <div
-                        className="w-1/2 bg-indigo-500 hover:bg-indigo-400 rounded-t transition-all"
+                        className="w-1/2 bg-indigo-600 hover:bg-indigo-700 rounded-t transition-all"
                         style={{ height: `${actionHeightPct}%` }}
                         title={`${d.actions} actions`}
                       />
                     </div>
-                    <span className="text-[11px] font-mono text-neutral-400 mt-2">
+                    <span className="text-[11px] font-mono text-slate-500 mt-2 font-medium">
                       {d.day}
                     </span>
                   </div>
@@ -145,12 +145,12 @@ export const AnalyticsPage: React.FC = () => {
         </div>
 
         {/* Chart 2: Tool Usage Distribution (Col 8-12) */}
-        <div className="lg:col-span-5 p-6 bg-neutral-900/40 border border-neutral-800 rounded-xl space-y-4">
+        <div className="lg:col-span-5 p-6 bg-white border border-slate-200 rounded-xl space-y-4 shadow-xs">
           <div>
-            <h2 className="text-sm font-semibold text-neutral-100">
+            <h2 className="text-sm font-semibold text-slate-900">
               JSON Tool Usage Distribution
             </h2>
-            <span className="text-[11px] text-neutral-400 font-mono">
+            <span className="text-[11px] text-slate-500 font-mono">
               Total 3,842 tool dispatches
             </span>
           </div>
@@ -159,14 +159,14 @@ export const AnalyticsPage: React.FC = () => {
             {toolDistribution.map((t) => (
               <div key={t.name} className="space-y-1">
                 <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-neutral-300 font-medium">{t.name}</span>
-                  <span className="text-neutral-400 tabular-nums">
+                  <span className="text-slate-700 font-medium">{t.name}</span>
+                  <span className="text-slate-500 tabular-nums">
                     {t.count} ({t.pct}%)
                   </span>
                 </div>
-                <div className="w-full h-2 rounded-full bg-neutral-800 overflow-hidden">
+                <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
                   <div
-                    className="h-full bg-indigo-500 rounded-full transition-all duration-500"
+                    className="h-full bg-indigo-600 rounded-full transition-all duration-500"
                     style={{ width: `${t.pct}%` }}
                   />
                 </div>
@@ -177,18 +177,18 @@ export const AnalyticsPage: React.FC = () => {
       </div>
 
       {/* Latency Breakdown Benchmark */}
-      <div className="p-6 bg-neutral-900/40 border border-neutral-800 rounded-xl space-y-4">
+      <div className="p-6 bg-white border border-slate-200 rounded-xl space-y-4 shadow-xs">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-sm font-semibold text-neutral-100">
+            <h2 className="text-sm font-semibold text-slate-900">
               End-to-End Latency Waterfall (420 ms Total)
             </h2>
-            <p className="text-xs text-neutral-400 mt-0.5">
+            <p className="text-xs text-slate-600 mt-0.5">
               Breakdown from user speech cessation to first audio output token returned to caller.
             </p>
           </div>
 
-          <span className="px-2.5 py-1 rounded bg-emerald-950/40 border border-emerald-800/40 text-emerald-400 font-mono text-xs">
+          <span className="px-2.5 py-1 rounded bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs font-medium">
             Sub-second Human Benchmark
           </span>
         </div>
@@ -197,17 +197,17 @@ export const AnalyticsPage: React.FC = () => {
           {latencySteps.map((s) => (
             <div
               key={s.stage}
-              className="p-4 bg-neutral-950/60 border border-neutral-800 rounded-lg space-y-1"
+              className="p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-1"
             >
-              <span className="text-[11px] font-mono text-neutral-400 block truncate">
+              <span className="text-[11px] font-mono text-slate-600 block truncate font-medium">
                 {s.stage}
               </span>
-              <div className="text-xl font-bold font-mono text-neutral-100 tabular-nums">
+              <div className="text-xl font-bold font-mono text-slate-900 tabular-nums">
                 {s.latency}
               </div>
-              <div className="w-full h-1.5 bg-neutral-800 rounded-full overflow-hidden mt-2">
+              <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden mt-2">
                 <div
-                  className="h-full bg-indigo-400 rounded-full"
+                  className="h-full bg-indigo-600 rounded-full"
                   style={{ width: `${s.pct * 2.2}%` }}
                 />
               </div>

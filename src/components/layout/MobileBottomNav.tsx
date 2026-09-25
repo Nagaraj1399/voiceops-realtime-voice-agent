@@ -39,7 +39,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   return (
     <nav
       aria-label="Mobile Navigation"
-      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-neutral-950/95 backdrop-blur-xl border-t border-neutral-800/90 px-2 py-1.5 flex items-center justify-around shadow-2xl pb-[max(0.5rem,env(safe-area-inset-bottom))]"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-slate-200 px-2 py-1.5 flex items-center justify-around shadow-lg pb-[max(0.5rem,env(safe-area-inset-bottom))]"
     >
       {navButtons.map((btn) => {
         const Icon = btn.icon;
@@ -51,20 +51,20 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             onClick={() => onSelectTab(btn.id)}
             className={`flex-1 min-h-[44px] flex flex-col items-center justify-center gap-0.5 rounded-lg py-1 px-2 transition-all select-none relative ${
               isActive
-                ? 'text-indigo-400 font-semibold'
-                : 'text-neutral-400 hover:text-neutral-200'
+                ? 'text-indigo-600 font-semibold'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
             {/* Live Indicator on Voice button */}
             {btn.isLiveAgent && isCallActive && (
-              <span className="absolute top-1 right-1/4 w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span className="absolute top-1 right-1/4 w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
             )}
 
             <div
               className={`p-1 rounded-md transition-colors ${
                 isActive
-                  ? 'bg-indigo-950/60 text-indigo-300'
-                  : 'text-neutral-400'
+                  ? 'bg-indigo-50 text-indigo-600'
+                  : 'text-slate-500'
               }`}
             >
               <Icon className="w-4 h-4" />
@@ -76,7 +76,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
 
             {/* Active underline bar */}
             {isActive && (
-              <span className="w-4 h-0.5 bg-indigo-500 rounded-full mt-0.5" />
+              <span className="w-4 h-0.5 bg-indigo-600 rounded-full mt-0.5" />
             )}
           </button>
         );
@@ -86,17 +86,17 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
       <button
         onClick={onOpenMenu}
         aria-label="Open all navigation tabs"
-        className={`flex-1 min-h-[44px] flex flex-col items-center justify-center gap-0.5 rounded-lg py-1 px-2 transition-all select-none text-neutral-400 hover:text-neutral-200 ${
+        className={`flex-1 min-h-[44px] flex flex-col items-center justify-center gap-0.5 rounded-lg py-1 px-2 transition-all select-none text-slate-500 hover:text-slate-800 ${
           ['analytics', 'architecture', 'settings'].includes(activeTab)
-            ? 'text-indigo-400 font-semibold'
+            ? 'text-indigo-600 font-semibold'
             : ''
         }`}
       >
         <div
           className={`p-1 rounded-md transition-colors ${
             ['analytics', 'architecture', 'settings'].includes(activeTab)
-              ? 'bg-indigo-950/60 text-indigo-300'
-              : 'text-neutral-400'
+              ? 'bg-indigo-50 text-indigo-600'
+              : 'text-slate-500'
           }`}
         >
           <Menu className="w-4 h-4" />

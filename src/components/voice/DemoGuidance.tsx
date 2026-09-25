@@ -23,11 +23,11 @@ export const DemoGuidance: React.FC<DemoGuidanceProps> = ({
   ];
 
   return (
-    <div className="p-4 bg-neutral-900/50 border border-neutral-800 rounded-xl space-y-3">
+    <div className="p-4 bg-white border border-slate-200 rounded-xl shadow-xs space-y-3">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
         <div className="flex items-center gap-2">
-          <MessageSquareQuote className="w-4 h-4 text-indigo-400" />
-          <span className="text-xs font-mono font-semibold uppercase tracking-wider text-neutral-300">
+          <MessageSquareQuote className="w-4 h-4 text-indigo-600" />
+          <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-800">
             TRY SAYING
           </span>
         </div>
@@ -36,14 +36,14 @@ export const DemoGuidance: React.FC<DemoGuidanceProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={onResetSession}
-            className="min-h-[36px] min-w-[36px] flex items-center justify-center text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800 rounded-lg transition-colors"
+            className="min-h-[36px] min-w-[36px] flex items-center justify-center text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors"
             title="Reset active session"
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={onRunDemoScript}
-            className="flex-1 sm:flex-initial min-h-[36px] px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-all flex items-center justify-center gap-1.5 shadow-sm shadow-indigo-900/40 active:scale-95"
+            className="flex-1 sm:flex-initial min-h-[36px] px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-all flex items-center justify-center gap-1.5 shadow-xs shadow-indigo-600/20 active:scale-95"
           >
             <Play className="w-3 h-3 fill-current" />
             <span>Run Hackathon Demo Flow</span>
@@ -51,7 +51,7 @@ export const DemoGuidance: React.FC<DemoGuidanceProps> = ({
         </div>
       </div>
 
-      <p className="text-xs text-neutral-400">
+      <p className="text-xs text-slate-600">
         Click any phrase below for vocal or test guidance. The agent parses intent, executes schema-backed tools, and confirms results.
       </p>
 
@@ -65,11 +65,11 @@ export const DemoGuidance: React.FC<DemoGuidanceProps> = ({
               onClick={() => onSelectPrompt(p)}
               className={`min-h-[36px] px-3 py-1.5 text-xs rounded-lg transition-colors border text-left flex items-center gap-1.5 active:scale-95 ${
                 isSelected
-                  ? 'bg-indigo-950/60 border-indigo-500 text-indigo-200'
-                  : 'bg-neutral-900/80 border-neutral-800 text-neutral-300 hover:border-neutral-700 hover:text-neutral-100'
+                  ? 'bg-indigo-50 border-indigo-300 text-indigo-900 font-medium shadow-xs'
+                  : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-100'
               }`}
             >
-              <Sparkles className="w-3 h-3 text-indigo-400 shrink-0" />
+              <Sparkles className="w-3 h-3 text-indigo-600 shrink-0" />
               <span>"{p}"</span>
             </button>
           );

@@ -37,7 +37,7 @@ export default function App() {
     } catch (e) {
       // Fallback
     }
-    return 'obsidian';
+    return 'light';
   });
 
   const [activeTab, setActiveTab] = useState<NavTab>('overview');
@@ -165,7 +165,7 @@ export default function App() {
       // Ignored
     }
 
-    const themeConfig = THEME_CONFIGS[theme] || THEME_CONFIGS.obsidian;
+    const themeConfig = THEME_CONFIGS[theme] || THEME_CONFIGS.light;
     
     // Update HTML & body background styles
     document.documentElement.style.backgroundColor = themeConfig.bgColor;
@@ -174,7 +174,9 @@ export default function App() {
     // Toggle dark class
     if (theme === 'light') {
       document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
     } else {
+      document.documentElement.classList.remove('light');
       document.documentElement.classList.add('dark');
     }
 
@@ -188,22 +190,24 @@ export default function App() {
     metaThemeColor.setAttribute('content', themeConfig.bgColor);
   }, [theme]);
 
-  const activeThemeConfig = THEME_CONFIGS[theme] || THEME_CONFIGS.obsidian;
+  const activeThemeConfig = THEME_CONFIGS[theme] || THEME_CONFIGS.light;
 
   return (
     <div
-      className={`flex h-[100dvh] w-full overflow-hidden text-neutral-100 antialiased font-sans relative transition-colors duration-200`}
+      className={`flex h-[100dvh] w-full overflow-hidden text-slate-900 antialiased font-sans relative transition-colors duration-200 bg-white`}
       style={{
         backgroundColor: activeThemeConfig.bgColor,
       }}
     >
       {/* Dynamic Ambient Background Lighting Layer */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0 transition-opacity duration-500 opacity-60"
-        style={{
-          background: activeThemeConfig.ambientGradient,
-        }}
-      />
+      {activeThemeConfig.ambientGradient !== 'none' && (
+        <div
+          className="fixed inset-0 pointer-events-none z-0 transition-opacity duration-500 opacity-60"
+          style={{
+            background: activeThemeConfig.ambientGradient,
+          }}
+        />
+      )}
 
       {/* Desktop Sidebar Navigation (Hidden on mobile) */}
       <Sidebar

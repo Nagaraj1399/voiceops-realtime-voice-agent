@@ -102,19 +102,19 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
       <section className="relative pt-6 pb-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-5">
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-neutral-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-slate-600">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>VoiceOps AI · Real-time Voice Intelligence</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-neutral-100 text-balance leading-[1.15]">
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 text-balance leading-[1.15]">
               Talk naturally. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-200 to-indigo-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700">
                 Get work done.
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base text-neutral-300 max-w-xl leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-600 max-w-xl leading-relaxed">
               VoiceOps AI combines AssemblyAI's real-time voice intelligence with structured business tools to turn natural spoken conversations into verified business actions.
             </p>
 
@@ -122,7 +122,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 pt-2">
               <button
                 onClick={onStartVoiceSession}
-                className="min-h-[44px] px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-950/60 active:scale-95"
+                className="min-h-[44px] px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition-all flex items-center justify-center gap-2 shadow-md shadow-indigo-600/25 active:scale-95"
               >
                 <PhoneCall className="w-4 h-4" />
                 <span>Start Voice Session</span>
@@ -130,9 +130,9 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
 
               <button
                 onClick={onLaunchDemo}
-                className="min-h-[44px] px-5 py-2.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 font-semibold text-sm transition-colors flex items-center justify-center gap-2 active:scale-95"
+                className="min-h-[44px] px-5 py-2.5 rounded-lg bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 font-semibold text-sm transition-colors flex items-center justify-center gap-2 shadow-xs active:scale-95"
               >
-                <Play className="w-4 h-4 text-indigo-400 fill-current" />
+                <Play className="w-4 h-4 text-indigo-600 fill-current" />
                 <span>Watch Interactive Demo</span>
               </button>
             </div>
@@ -140,12 +140,12 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
 
           {/* Right Hero Visualizer Container */}
           <div className="lg:col-span-5">
-            <div className="p-4 sm:p-6 bg-neutral-900/60 border border-neutral-800 rounded-2xl relative overflow-hidden shadow-2xl">
+            <div className="p-4 sm:p-6 bg-white border border-slate-200 rounded-2xl relative overflow-hidden shadow-sm">
               <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+                <span className="text-xs font-mono uppercase tracking-wider text-slate-500">
                   Audio Stream Visualizer
                 </span>
-                <span className="px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-800/60 text-[11px] font-mono text-emerald-400">
+                <span className="px-2 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-[11px] font-mono text-emerald-700">
                   AssemblyAI Ready
                 </span>
               </div>
@@ -153,14 +153,14 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
               {/* Waveform */}
               <VoiceVisualizer levels={audioLevels} state="speaking" className="my-4" />
 
-              <div className="mt-4 pt-4 border-t border-neutral-800/80 grid grid-cols-2 gap-3 text-xs">
-                <div className="p-2.5 bg-neutral-950/60 rounded-lg border border-neutral-800">
-                  <span className="text-[10px] text-neutral-400 uppercase font-mono block">VAD Engine</span>
-                  <span className="font-semibold text-neutral-200">Neural Turn Detection</span>
+              <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-2 gap-3 text-xs">
+                <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                  <span className="text-[10px] text-slate-500 uppercase font-mono block">VAD Engine</span>
+                  <span className="font-semibold text-slate-800">Neural Turn Detection</span>
                 </div>
-                <div className="p-2.5 bg-neutral-950/60 rounded-lg border border-neutral-800">
-                  <span className="text-[10px] text-neutral-400 uppercase font-mono block">Interruption</span>
-                  <span className="font-semibold text-indigo-300">Barge-in Active</span>
+                <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                  <span className="text-[10px] text-slate-500 uppercase font-mono block">Interruption</span>
+                  <span className="font-semibold text-indigo-600">Barge-in Active</span>
                 </div>
               </div>
             </div>
@@ -173,13 +173,13 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
         {metrics.map((m) => (
           <div
             key={m.label}
-            className="p-5 bg-neutral-900/40 border border-neutral-800 rounded-xl"
+            className="p-5 bg-white border border-slate-200 rounded-xl shadow-xs"
           >
-            <div className="text-xs font-medium text-neutral-400 mb-1">{m.label}</div>
-            <div className="text-3xl font-extrabold text-neutral-100 font-mono tracking-tight tabular-nums">
+            <div className="text-xs font-medium text-slate-500 mb-1">{m.label}</div>
+            <div className="text-3xl font-extrabold text-slate-900 font-mono tracking-tight tabular-nums">
               {m.value}
             </div>
-            <div className="text-xs text-neutral-400 mt-1">{m.detail}</div>
+            <div className="text-xs text-slate-500 mt-1">{m.detail}</div>
           </div>
         ))}
       </section>
@@ -187,13 +187,13 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
       {/* Core Flow: TALK -> UNDERSTAND -> ACT -> CONFIRM */}
       <section className="space-y-4">
         <div className="flex flex-col space-y-1">
-          <span className="text-xs font-mono uppercase tracking-wider text-indigo-400">
+          <span className="text-xs font-mono uppercase tracking-wider text-indigo-600">
             Mechanism to Outcome
           </span>
-          <h2 className="text-2xl font-bold tracking-tight text-neutral-100">
+          <h2 className="text-2xl font-bold tracking-tight text-slate-900">
             How VoiceOps AI Works
           </h2>
-          <p className="text-sm text-neutral-400 max-w-2xl">
+          <p className="text-sm text-slate-600 max-w-2xl">
             A continuous real-time pipeline that eliminates manual data entry and bridges spoken requests directly to verified database changes.
           </p>
         </div>
@@ -202,20 +202,20 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           {fourStepFlow.map((item, idx) => (
             <div
               key={item.step}
-              className="p-5 bg-neutral-900/40 border border-neutral-800 rounded-xl relative group hover:border-neutral-700 transition-colors"
+              className="p-5 bg-white border border-slate-200 rounded-xl relative group hover:border-indigo-300 transition-all shadow-xs hover:shadow-sm"
             >
               <div className="flex items-center justify-between mb-3">
-                <span className="text-2xl font-extrabold font-mono text-indigo-400/80">
+                <span className="text-2xl font-extrabold font-mono text-indigo-600">
                   {item.step}
                 </span>
                 {idx < 3 && (
-                  <ArrowRight className="w-4 h-4 text-neutral-600 hidden lg:block" />
+                  <ArrowRight className="w-4 h-4 text-slate-300 hidden lg:block" />
                 )}
               </div>
-              <h3 className="text-base font-bold text-neutral-100 mb-1 tracking-tight">
+              <h3 className="text-base font-bold text-slate-900 mb-1 tracking-tight">
                 {item.title}
               </h3>
-              <p className="text-xs leading-relaxed text-neutral-400">
+              <p className="text-xs leading-relaxed text-slate-600">
                 {item.description}
               </p>
             </div>
@@ -224,64 +224,64 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
       </section>
 
       {/* Beyond Voice Chatbots: Originality comparison */}
-      <section className="p-8 bg-neutral-900/30 border border-neutral-800 rounded-2xl space-y-6">
+      <section className="p-6 sm:p-8 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-6">
         <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-indigo-400">
+          <span className="text-xs font-mono uppercase tracking-wider text-indigo-600">
             Key Architectural Differentiator
           </span>
-          <h2 className="text-2xl font-bold text-neutral-100 tracking-tight mt-1">
+          <h2 className="text-2xl font-bold text-slate-900 tracking-tight mt-1">
             Beyond Voice Chatbots
           </h2>
-          <p className="text-sm text-neutral-400 mt-1 max-w-2xl">
+          <p className="text-sm text-slate-600 mt-1 max-w-2xl">
             Traditional voice assistants stop at information retrieval. VoiceOps AI is an operations agent engineered to execute verified business workflows.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Traditional */}
-          <div className="p-6 bg-neutral-950/60 border border-neutral-800 rounded-xl space-y-4">
+          <div className="p-6 bg-slate-50 border border-slate-200 rounded-xl space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono font-semibold text-neutral-400 uppercase tracking-wider">
+              <span className="text-xs font-mono font-semibold text-slate-600 uppercase tracking-wider">
                 Traditional Voice Bot
               </span>
-              <span className="text-[11px] font-mono text-neutral-400">Read-Only</span>
+              <span className="text-[11px] font-mono text-slate-500">Read-Only</span>
             </div>
             
-            <div className="flex items-center gap-3 text-sm font-mono text-neutral-400 py-3 border-y border-neutral-800/80">
+            <div className="flex items-center gap-3 text-sm font-mono text-slate-600 py-3 border-y border-slate-200">
               <span>Talk</span>
-              <ArrowRight className="w-4 h-4 text-neutral-600" />
-              <span className="text-neutral-300">Answer</span>
+              <ArrowRight className="w-4 h-4 text-slate-400" />
+              <span className="text-slate-800 font-semibold">Answer</span>
             </div>
 
-            <p className="text-xs text-neutral-400 leading-relaxed">
+            <p className="text-xs text-slate-600 leading-relaxed">
               Provides text answers or static documentation. The customer still has to navigate to a portal, fill out forms, or wait on hold for a human agent to finalize changes.
             </p>
           </div>
 
           {/* VoiceOps AI */}
-          <div className="p-6 bg-indigo-950/20 border border-indigo-900/50 rounded-xl space-y-4">
+          <div className="p-6 bg-indigo-50/70 border border-indigo-200 rounded-xl space-y-4 shadow-xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono font-semibold text-indigo-300 uppercase tracking-wider">
+              <span className="text-xs font-mono font-semibold text-indigo-900 uppercase tracking-wider">
                 VoiceOps AI
               </span>
-              <span className="px-2 py-0.5 rounded bg-indigo-900/40 text-indigo-300 border border-indigo-700/50 text-[11px] font-mono">
+              <span className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300 text-[11px] font-mono font-medium">
                 Full Transactional Loop
               </span>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-indigo-200 py-3 border-y border-indigo-900/40">
+            <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-indigo-900 py-3 border-y border-indigo-200">
               <span>Talk</span>
-              <ArrowRight className="w-3 h-3 text-indigo-400" />
+              <ArrowRight className="w-3 h-3 text-indigo-500" />
               <span>Understand</span>
-              <ArrowRight className="w-3 h-3 text-indigo-400" />
+              <ArrowRight className="w-3 h-3 text-indigo-500" />
               <span>Decide</span>
-              <ArrowRight className="w-3 h-3 text-indigo-400" />
+              <ArrowRight className="w-3 h-3 text-indigo-500" />
               <span>Call Tools</span>
-              <ArrowRight className="w-3 h-3 text-indigo-400" />
-              <span className="text-white font-bold">Act & Confirm</span>
+              <ArrowRight className="w-3 h-3 text-indigo-500" />
+              <span className="text-indigo-950 font-bold bg-indigo-100 px-1.5 py-0.5 rounded">Act & Confirm</span>
             </div>
 
-            <p className="text-xs text-neutral-300 leading-relaxed">
+            <p className="text-xs text-indigo-950/80 leading-relaxed">
               Gathers missing parameters, validates schedule constraints via strict JSON Schema tools, commits confirmed bookings to dispatch databases, and verbally delivers confirmed booking codes.
             </p>
           </div>
@@ -291,58 +291,58 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
       {/* Business Value & Reusable Across Industries */}
       <section className="space-y-6">
         <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-indigo-400">
+          <span className="text-xs font-mono uppercase tracking-wider text-indigo-600">
             Enterprise Value Proposition
           </span>
-          <h2 className="text-2xl font-bold tracking-tight text-neutral-100 mt-1">
+          <h2 className="text-2xl font-bold tracking-tight text-slate-900 mt-1">
             Why VoiceOps AI?
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div className="p-6 bg-neutral-900/40 border border-neutral-800 rounded-xl space-y-2">
-            <div className="w-8 h-8 rounded-lg bg-neutral-800 flex items-center justify-center text-indigo-400 mb-3">
+          <div className="p-6 bg-white border border-slate-200 rounded-xl shadow-xs space-y-2">
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 mb-3">
               <Clock className="w-4 h-4" />
             </div>
-            <h3 className="text-base font-bold text-neutral-100">Reduce Repetitive Work</h3>
-            <p className="text-xs leading-relaxed text-neutral-400">
+            <h3 className="text-base font-bold text-slate-900">Reduce Repetitive Work</h3>
+            <p className="text-xs leading-relaxed text-slate-600">
               Automates up to 85% of standard scheduling, warranty verification, and routine inquiries, freeing field supervisors for complex diagnostics.
             </p>
           </div>
 
-          <div className="p-6 bg-neutral-900/40 border border-neutral-800 rounded-xl space-y-2">
-            <div className="w-8 h-8 rounded-lg bg-neutral-800 flex items-center justify-center text-emerald-400 mb-3">
+          <div className="p-6 bg-white border border-slate-200 rounded-xl shadow-xs space-y-2">
+            <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 mb-3">
               <CheckCircle2 className="w-4 h-4" />
             </div>
-            <h3 className="text-base font-bold text-neutral-100">Increase Availability</h3>
-            <p className="text-xs leading-relaxed text-neutral-400">
+            <h3 className="text-base font-bold text-slate-900">Increase Availability</h3>
+            <p className="text-xs leading-relaxed text-slate-600">
               Provide instantaneous, zero-wait voice triage 24/7/365 without staffing night shifts or paying per-minute legacy call center fees.
             </p>
           </div>
 
-          <div className="p-6 bg-neutral-900/40 border border-neutral-800 rounded-xl space-y-2">
-            <div className="w-8 h-8 rounded-lg bg-neutral-800 flex items-center justify-center text-indigo-400 mb-3">
+          <div className="p-6 bg-white border border-slate-200 rounded-xl shadow-xs space-y-2">
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 mb-3">
               <Zap className="w-4 h-4" />
             </div>
-            <h3 className="text-base font-bold text-neutral-100">Turn Conversations into Actions</h3>
-            <p className="text-xs leading-relaxed text-neutral-400">
+            <h3 className="text-base font-bold text-slate-900">Turn Conversations into Actions</h3>
+            <p className="text-xs leading-relaxed text-slate-600">
               Connect natural speech directly into existing SQL databases, CRM backends, and dispatch dispatchers via strict JSON Schema contracts.
             </p>
           </div>
         </div>
 
         {/* Reusable Industries Grid */}
-        <div className="p-5 bg-neutral-900/30 border border-neutral-800 rounded-xl space-y-3">
-          <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+        <div className="p-5 bg-white border border-slate-200 rounded-xl shadow-xs space-y-3">
+          <span className="text-xs font-mono uppercase tracking-wider text-slate-500">
             Designed for Real Business Workflows Across Industries
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             {industries.map((ind) => (
               <div
                 key={ind}
-                className="px-3 py-2 bg-neutral-950/60 border border-neutral-800 rounded-lg text-xs font-medium text-neutral-300 flex items-center gap-2"
+                className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium text-slate-700 flex items-center gap-2"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
                 <span>{ind}</span>
               </div>
             ))}
@@ -352,16 +352,16 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
 
       {/* AssemblyAI Technology Section */}
       <section className="space-y-5">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <span className="text-xs font-mono uppercase tracking-wider text-indigo-400">
+            <span className="text-xs font-mono uppercase tracking-wider text-indigo-600">
               Core Technology
             </span>
-            <h2 className="text-2xl font-bold tracking-tight text-neutral-100 mt-1">
+            <h2 className="text-2xl font-bold tracking-tight text-slate-900 mt-1">
               Powered by AssemblyAI Real-Time Voice Agent
             </h2>
           </div>
-          <span className="px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-700/60 text-xs font-mono text-indigo-300">
+          <span className="self-start sm:self-auto px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-mono text-indigo-700 font-medium">
             Official Voice Agent Engine
           </span>
         </div>
@@ -372,13 +372,13 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             return (
               <div
                 key={card.title}
-                className="p-4 bg-neutral-900/40 border border-neutral-800 rounded-xl space-y-2"
+                className="p-4 bg-white border border-slate-200 rounded-xl shadow-xs space-y-2"
               >
-                <div className="w-7 h-7 rounded-md bg-neutral-800 text-indigo-400 flex items-center justify-center">
+                <div className="w-7 h-7 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center">
                   <Icon className="w-3.5 h-3.5" />
                 </div>
-                <h3 className="text-xs font-bold text-neutral-200">{card.title}</h3>
-                <p className="text-[11px] leading-relaxed text-neutral-400">
+                <h3 className="text-xs font-bold text-slate-900">{card.title}</h3>
+                <p className="text-[11px] leading-relaxed text-slate-600">
                   {card.description}
                 </p>
               </div>

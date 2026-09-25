@@ -83,50 +83,50 @@ export const ArchitecturePage: React.FC = () => {
     <div className="space-y-8 pb-16">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-neutral-100">
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">
           Technical Architecture & Hackathon Brief
         </h1>
-        <p className="text-xs text-neutral-400 mt-0.5">
+        <p className="text-xs text-slate-600 mt-0.5">
           End-to-end blueprint demonstrating AssemblyAI real-time integration, JSON schema contracts, and judging rubrics.
         </p>
       </div>
 
       {/* About the Solution - Pitch Section for Judges */}
-      <section className="p-6 bg-indigo-950/20 border border-indigo-900/50 rounded-2xl space-y-4">
+      <section className="p-6 bg-indigo-50/50 border border-indigo-100 rounded-2xl space-y-4 shadow-xs">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-mono font-semibold uppercase tracking-wider text-indigo-300">
+          <span className="text-xs font-mono font-semibold uppercase tracking-wider text-indigo-700">
             About the Solution · Hackathon Showcase
           </span>
-          <span className="px-2.5 py-0.5 bg-indigo-900/60 border border-indigo-700/50 rounded text-[11px] font-mono text-indigo-200">
+          <span className="px-2.5 py-0.5 bg-indigo-100/80 border border-indigo-200 rounded text-[11px] font-mono text-indigo-800 font-medium">
             VoiceOps AI
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-1">
-          <div className="p-4 bg-neutral-950/60 border border-neutral-800 rounded-xl space-y-1">
-            <span className="text-[10px] font-mono text-rose-400 uppercase font-bold block">The Problem</span>
-            <p className="text-xs text-neutral-300 leading-relaxed">
+          <div className="p-4 bg-white border border-slate-200 rounded-xl space-y-1 shadow-xs">
+            <span className="text-[10px] font-mono text-rose-700 uppercase font-bold block">The Problem</span>
+            <p className="text-xs text-slate-600 leading-relaxed">
               Traditional voice bots separate conversation from business operations, forcing users into tedious web portals or long call-center queues.
             </p>
           </div>
 
-          <div className="p-4 bg-neutral-950/60 border border-neutral-800 rounded-xl space-y-1">
-            <span className="text-[10px] font-mono text-emerald-400 uppercase font-bold block">The Solution</span>
-            <p className="text-xs text-neutral-300 leading-relaxed">
+          <div className="p-4 bg-white border border-slate-200 rounded-xl space-y-1 shadow-xs">
+            <span className="text-[10px] font-mono text-emerald-700 uppercase font-bold block">The Solution</span>
+            <p className="text-xs text-slate-600 leading-relaxed">
               VoiceOps AI links natural speech directly into business tools, converting verbal intent into confirmed appointments and operations in real time.
             </p>
           </div>
 
-          <div className="p-4 bg-neutral-950/60 border border-neutral-800 rounded-xl space-y-1">
-            <span className="text-[10px] font-mono text-indigo-400 uppercase font-bold block">Technology</span>
-            <p className="text-xs text-neutral-300 leading-relaxed">
+          <div className="p-4 bg-white border border-slate-200 rounded-xl space-y-1 shadow-xs">
+            <span className="text-[10px] font-mono text-indigo-700 uppercase font-bold block">Technology</span>
+            <p className="text-xs text-slate-600 leading-relaxed">
               AssemblyAI Voice Agent API + Neural Turn Detection + Barge-in Interruption + JSON Schema Validation + Business Tool Execution.
             </p>
           </div>
 
-          <div className="p-4 bg-neutral-950/60 border border-neutral-800 rounded-xl space-y-1">
-            <span className="text-[10px] font-mono text-amber-400 uppercase font-bold block">Differentiator</span>
-            <p className="text-xs text-neutral-300 leading-relaxed">
+          <div className="p-4 bg-white border border-slate-200 rounded-xl space-y-1 shadow-xs">
+            <span className="text-[10px] font-mono text-amber-700 uppercase font-bold block">Differentiator</span>
+            <p className="text-xs text-slate-600 leading-relaxed">
               The agent doesn't stop at answering questions. It makes verified mutations and confirms the exact booking code verbally.
             </p>
           </div>
@@ -135,7 +135,7 @@ export const ArchitecturePage: React.FC = () => {
 
       {/* 4 Judging Criteria Breakdown */}
       <section className="space-y-4">
-        <h2 className="text-lg font-bold text-neutral-100">
+        <h2 className="text-lg font-bold text-slate-900">
           Hackathon Evaluation Criteria
         </h2>
 
@@ -143,23 +143,23 @@ export const ArchitecturePage: React.FC = () => {
           {judgingCriteria.map((crit) => (
             <div
               key={crit.title}
-              className="p-5 bg-neutral-900/40 border border-neutral-800 rounded-xl space-y-3"
+              className="p-5 bg-white border border-slate-200 rounded-xl space-y-3 shadow-xs"
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-mono font-bold text-neutral-200 tracking-wider">
+                <h3 className="text-xs font-mono font-bold text-slate-900 tracking-wider">
                   {crit.title}
                 </h3>
-                <span className="px-2 py-0.5 rounded bg-neutral-800 border border-neutral-700 text-[11px] font-mono text-indigo-300">
+                <span className="px-2 py-0.5 rounded bg-indigo-50 border border-indigo-200 text-[11px] font-mono text-indigo-700 font-semibold">
                   {crit.badge}
                 </span>
               </div>
-              <p className="text-xs text-neutral-300 font-medium">
+              <p className="text-xs text-slate-700 font-medium">
                 {crit.summary}
               </p>
-              <ul className="space-y-1.5 pt-1 border-t border-neutral-800/80">
+              <ul className="space-y-1.5 pt-1 border-t border-slate-100">
                 {crit.details.map((d, i) => (
-                  <li key={i} className="flex items-start gap-2 text-[11px] text-neutral-400">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                  <li key={i} className="flex items-start gap-2 text-[11px] text-slate-600">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                     <span>{d}</span>
                   </li>
                 ))}
@@ -173,38 +173,38 @@ export const ArchitecturePage: React.FC = () => {
       <section className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-bold text-neutral-100">
+            <h2 className="text-lg font-bold text-slate-900">
               Technical Architecture Flow Diagram
             </h2>
-            <p className="text-xs text-neutral-400">
+            <p className="text-xs text-slate-600">
               Real-time message routing and verified execution pipeline (15-second visual comprehension).
             </p>
           </div>
-          <span className="px-2.5 py-1 bg-neutral-900 border border-neutral-800 text-[11px] font-mono text-neutral-300 rounded">
+          <span className="px-2.5 py-1 bg-white border border-slate-200 text-[11px] font-mono text-slate-700 rounded shadow-xs">
             Bidirectional WebSocket
           </span>
         </div>
 
-        <div className="p-6 bg-neutral-900/40 border border-neutral-800 rounded-xl">
+        <div className="p-6 bg-white border border-slate-200 rounded-xl shadow-xs">
           <div className="flex flex-col items-center max-w-xl mx-auto space-y-2">
             {architectureNodes.map((node, index) => (
               <React.Fragment key={node.name}>
-                <div className="w-full p-3 bg-neutral-950/80 border border-neutral-800 rounded-lg flex items-center justify-between transition-colors hover:border-neutral-700">
+                <div className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg flex items-center justify-between transition-colors hover:border-slate-300">
                   <div className="flex items-center gap-3">
-                    <span className="w-6 h-6 rounded-md bg-neutral-900 border border-neutral-800 text-neutral-400 text-xs font-mono flex items-center justify-center font-bold">
+                    <span className="w-6 h-6 rounded-md bg-white border border-slate-200 text-indigo-700 text-xs font-mono flex items-center justify-center font-bold shadow-xs">
                       {index + 1}
                     </span>
-                    <span className="text-xs font-mono font-bold text-neutral-200 uppercase tracking-wide">
+                    <span className="text-xs font-mono font-bold text-slate-800 uppercase tracking-wide">
                       {node.name}
                     </span>
                   </div>
-                  <span className="text-[11px] text-neutral-400 hidden sm:block">
+                  <span className="text-[11px] text-slate-500 hidden sm:block">
                     {node.type}
                   </span>
                 </div>
 
                 {index < architectureNodes.length - 1 && (
-                  <ArrowDown className="w-4 h-4 text-neutral-600 my-0.5" />
+                  <ArrowDown className="w-4 h-4 text-slate-400 my-0.5" />
                 )}
               </React.Fragment>
             ))}
@@ -215,10 +215,10 @@ export const ArchitecturePage: React.FC = () => {
       {/* Interactive Tool Schema Explorer */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-lg font-bold text-neutral-100">
+          <h2 className="text-lg font-bold text-slate-900">
             Registered JSON Schema Tools
           </h2>
-          <p className="text-xs text-neutral-400">
+          <p className="text-xs text-slate-600">
             Strict schemas passed into AssemblyAI Voice Agent configuration for deterministic business execution.
           </p>
         </div>
@@ -234,19 +234,19 @@ export const ArchitecturePage: React.FC = () => {
                   onClick={() => setSelectedToolIndex(idx)}
                   className={`w-full p-3 text-left rounded-lg border transition-all text-xs ${
                     isSelected
-                      ? 'bg-neutral-900 border-indigo-500 text-white shadow-sm'
-                      : 'bg-neutral-950/60 border-neutral-800 text-neutral-400 hover:text-neutral-200 hover:border-neutral-700'
+                      ? 'bg-indigo-50 border-indigo-300 text-indigo-900 shadow-xs ring-1 ring-indigo-300/40'
+                      : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-mono font-semibold text-neutral-200">
+                    <span className="font-mono font-semibold text-slate-900">
                       {tool.name}
                     </span>
-                    <span className="text-[10px] font-mono text-neutral-400">
+                    <span className="text-[10px] font-mono text-slate-500">
                       {tool.parameters.required.length} required
                     </span>
                   </div>
-                  <p className="text-[11px] text-neutral-400 line-clamp-2">
+                  <p className="text-[11px] text-slate-500 line-clamp-2">
                     {tool.description}
                   </p>
                 </button>
@@ -255,18 +255,18 @@ export const ArchitecturePage: React.FC = () => {
           </div>
 
           {/* Tool Schema Code Viewer */}
-          <div className="lg:col-span-8 p-5 bg-neutral-950/80 border border-neutral-800 rounded-xl space-y-3 font-mono text-xs">
-            <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
+          <div className="lg:col-span-8 p-5 bg-white border border-slate-200 rounded-xl space-y-3 font-mono text-xs shadow-xs">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
               <div className="flex items-center gap-2">
-                <FileCode className="w-4 h-4 text-indigo-400" />
-                <span className="font-bold text-neutral-200">{activeTool.name}</span>
+                <FileCode className="w-4 h-4 text-indigo-600" />
+                <span className="font-bold text-slate-900">{activeTool.name}</span>
               </div>
-              <span className="px-2 py-0.5 bg-neutral-900 text-neutral-400 text-[10px] rounded border border-neutral-800">
+              <span className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] rounded border border-slate-200 font-medium">
                 JSON Schema Draft 7
               </span>
             </div>
 
-            <pre className="p-3 bg-neutral-900/90 border border-neutral-800/80 rounded-lg text-neutral-300 overflow-x-auto text-[11px] leading-relaxed max-h-96">
+            <pre className="p-3 bg-slate-900 text-slate-100 border border-slate-800 rounded-lg overflow-x-auto text-[11px] leading-relaxed max-h-96 shadow-inner font-mono">
               {JSON.stringify(activeTool, null, 2)}
             </pre>
           </div>
