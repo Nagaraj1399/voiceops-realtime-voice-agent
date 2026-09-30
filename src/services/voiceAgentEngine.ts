@@ -42,9 +42,18 @@ export class VoiceAgentEngine {
   
   private currentIntent: string = '';
   private collectedEntities: Record<string, string> = {};
+  private selectedModel: string = 'gemini-3.8-live';
 
   constructor() {
     this.initSpeechRecognition();
+  }
+
+  public setModel(model: string): void {
+    this.selectedModel = model;
+  }
+
+  public getModel(): string {
+    return this.selectedModel;
   }
 
   public subscribe(listener: VoiceEngineListener): () => void {
@@ -396,6 +405,53 @@ export class VoiceAgentEngine {
     // Pipeline: User Speech -> Intent Detection
     this.notifyPipeline('user_speech');
     this.notifyState('thinking');
+
+    // Attempt real-time Gemini Live API endpoint
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+      const res = await fetch('/api/voice/gemini-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          utterance: text,
+          history: this.messages,
+          model: this.selectedModel,
+        }),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.intent) {
+          this.currentIntent = data.intent;
+        }
+        this.notifyPipeline('intent_detection');
+
+        if (data.toolCall) {
+          this.notifyPipeline('tool_routing');
+          this.notifyToolCall(data.toolCall);
+          this.notifyPipeline('business_system');
+        }
+
+        if (data.action) {
+          this.notifyAction(data.action);
+        }
+
+        this.notifyPipeline('result_verification');
+        await new Promise(r => setTimeout(r, 180));
+
+        if (data.reply) {
+          this.speakAgentResponse(data.reply);
+          return;
+        }
+      }
+    } catch (apiErr) {
+      console.warn('Gemini Live API fallback to internal engine:', apiErr);
+    }
 
     await new Promise(r => setTimeout(r, 220));
     this.notifyPipeline('intent_detection');

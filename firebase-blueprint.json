@@ -1,0 +1,199 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile authenticated via Google Firebase Auth",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique Firebase Auth UID"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The user's email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The user's display name"
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "The user's avatar image URL"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of account creation"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last profile update"
+        }
+      },
+      "required": ["id", "email"]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "Real-time voice conversation session with transcripts, tool calls, and Gemini Live AI interactions",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique session ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the owner user"
+        },
+        "startTime": {
+          "type": "string",
+          "description": "Human-readable or ISO timestamp of session start"
+        },
+        "duration": {
+          "type": "string",
+          "description": "Formatted duration of the call"
+        },
+        "intent": {
+          "type": "string",
+          "description": "Primary detected intent of the conversation"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Completed", "In Progress", "Escalated", "Failed"],
+          "description": "Lifecycle state of the conversation"
+        },
+        "summary": {
+          "type": "string",
+          "description": "Brief semantic overview of the conversation"
+        },
+        "outcome": {
+          "type": "string",
+          "description": "Verified business outcome or confirmation"
+        },
+        "avgLatencyMs": {
+          "type": "number",
+          "description": "Average voice roundtrip latency in milliseconds"
+        },
+        "messages": {
+          "type": "array",
+          "description": "Transcript utterances between user and voice agent"
+        },
+        "toolCalls": {
+          "type": "array",
+          "description": "Structured JSON schema tool executions"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of creation"
+        }
+      },
+      "required": ["id", "userId", "intent", "status"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Field service appointment or reservation created via conversational voice operations",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique reference ID (e.g. VO-20481)"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the owner user"
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Name of customer"
+        },
+        "customerPhone": {
+          "type": "string",
+          "description": "Contact phone number"
+        },
+        "service": {
+          "type": "string",
+          "description": "Type of service booked"
+        },
+        "date": {
+          "type": "string",
+          "description": "Target date string"
+        },
+        "timeSlot": {
+          "type": "string",
+          "description": "Time window (e.g. 7:00 PM)"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["confirmed", "cancelled"],
+          "description": "Booking status"
+        },
+        "address": {
+          "type": "string",
+          "description": "Service location address"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of booking creation"
+        }
+      },
+      "required": ["id", "userId", "customerName", "service", "date", "timeSlot", "status"]
+    },
+    "BusinessAction": {
+      "title": "BusinessAction",
+      "description": "Verified business mutation dispatched by VoiceOps AI",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique action log ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the owner user"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["booking_created", "booking_cancelled", "availability_checked", "customer_retrieved", "human_escalated"],
+          "description": "Type of action committed"
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-readable action description"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["confirmed", "pending", "cancelled"],
+          "description": "Execution status"
+        },
+        "referenceId": {
+          "type": "string",
+          "description": "Related booking or transaction token"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Formatted timestamp of execution"
+        }
+      },
+      "required": ["id", "userId", "type", "title", "status", "referenceId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Individual user profile records"
+    },
+    "/users/{userId}/conversations/{conversationId}": {
+      "schema": { "$ref": "#/entities/Conversation" },
+      "description": "Voice conversation transcripts and sessions owned by the user"
+    },
+    "/users/{userId}/bookings/{bookingId}": {
+      "schema": { "$ref": "#/entities/Booking" },
+      "description": "Appointments and bookings created or managed by the user"
+    },
+    "/users/{userId}/actions/{actionId}": {
+      "schema": { "$ref": "#/entities/BusinessAction" },
+      "description": "Audit trail of business actions dispatched for the user"
+    }
+  }
+}

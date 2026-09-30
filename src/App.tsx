@@ -3,7 +3,9 @@
  * From conversation to action.
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import type { User as FirebaseUser } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { Sidebar, NavTab } from './components/layout/Sidebar';
 import { TopBar } from './components/layout/TopBar';
 import { MobileBottomNav } from './components/layout/MobileBottomNav';
@@ -16,6 +18,19 @@ import { AnalyticsPage } from './components/pages/AnalyticsPage';
 import { ArchitecturePage } from './components/pages/ArchitecturePage';
 import { SettingsPage } from './components/pages/SettingsPage';
 import { voiceEngine } from './services/voiceAgentEngine';
+import {
+  auth,
+  signInWithGoogle,
+  signInAsGuest,
+  signOutUser,
+  testConnection,
+  saveConversationToFirestore,
+  subscribeToConversations,
+  saveBookingToFirestore,
+  subscribeToBookings,
+  saveActionToFirestore,
+  subscribeToActions,
+} from './services/firebase';
 import {
   AgentState,
   PipelineStage,
@@ -51,10 +66,80 @@ export default function App() {
   const [collectedEntities, setCollectedEntities] = useState<Record<string, string>>({});
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState<boolean>(false);
 
-  // Persisted data from backend / local state
+  // Gemini Conversational Model: default to gemini-3.8-live (Live API)
+  const [selectedModel, setSelectedModel] = useState<string>('gemini-3.8-live');
+
+  // Firebase Authentication & Firestore Connection
+  const [user, setUser] = useState<FirebaseUser | null>(null);
+  const [firestoreConnected, setFirestoreConnected] = useState<boolean>(false);
+
+  // Keep a reference to current user for callbacks
+  const userRef = useRef<FirebaseUser | null>(null);
+  useEffect(() => {
+    userRef.current = user;
+  }, [user]);
+
+  // Persisted data from Firestore / backend
   const [sessions, setSessions] = useState<ConversationSession[]>([]);
   const [bookings, setBookings] = useState<Booking[]>(mockBookings);
   const [customers, setCustomers] = useState<Customer[]>(mockCustomers);
+
+  // Synchronize model with voiceEngine
+  useEffect(() => {
+    voiceEngine.setModel(selectedModel);
+  }, [selectedModel]);
+
+  // Test Firestore Connection and listen to Firebase Auth State
+  useEffect(() => {
+    testConnection().then((connected) => {
+      setFirestoreConnected(connected);
+    });
+
+    const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => {
+      unsubscribeAuth();
+    };
+  }, []);
+
+  // When Firebase user changes, subscribe to their Firestore collections
+  useEffect(() => {
+    if (!user) return;
+
+    // 1. Subscribe to user conversations
+    const unsubConv = subscribeToConversations(user.uid, (data) => {
+      if (data && data.length > 0) {
+        setSessions(data);
+      }
+    });
+
+    // 2. Subscribe to user bookings
+    const unsubBookings = subscribeToBookings(user.uid, (data) => {
+      if (data && data.length > 0) {
+        setBookings(data);
+      } else {
+        // Seed initial mock bookings into user's personal Firestore subcollection
+        mockBookings.slice(0, 3).forEach((b) => {
+          saveBookingToFirestore(user.uid, b);
+        });
+      }
+    });
+
+    // 3. Subscribe to user actions
+    const unsubActions = subscribeToActions(user.uid, (data) => {
+      if (data && data.length > 0) {
+        setActions(data);
+      }
+    });
+
+    return () => {
+      unsubConv();
+      unsubBookings();
+      unsubActions();
+    };
+  }, [user]);
 
   // Subscribe to voice agent engine events
   useEffect(() => {
@@ -71,7 +156,13 @@ export default function App() {
       },
       onAction: (action) => {
         setActions([...voiceEngine.getActions()]);
-        // If it's a booking, also update bookings list
+
+        // If user is authenticated, persist action to Firestore
+        if (userRef.current) {
+          saveActionToFirestore(userRef.current.uid, action);
+        }
+
+        // If it's a booking, also update bookings list & persist
         if (action.type === 'booking_created' && action.details) {
           const newBooking: Booking = {
             id: action.referenceId,
@@ -84,7 +175,11 @@ export default function App() {
             address: String(action.details.address || '742 Evergreen Terrace, Springfield, OR'),
             createdAt: new Date().toISOString(),
           };
-          setBookings((prev) => [newBooking, ...prev.filter(b => b.id !== newBooking.id)]);
+          setBookings((prev) => [newBooking, ...prev.filter((b) => b.id !== newBooking.id)]);
+
+          if (userRef.current) {
+            saveBookingToFirestore(userRef.current.uid, newBooking);
+          }
         }
       },
       onInterruption: () => {
@@ -100,23 +195,23 @@ export default function App() {
     };
   }, []);
 
-  // Fetch initial history and actions from backend
+  // Fetch initial history and actions from backend if no firestore user
   useEffect(() => {
     async function loadData() {
       try {
         const res = await fetch('/api/voice/history');
         if (res.ok) {
           const data = await res.json();
-          if (data.sessions) {
+          if (data.sessions && !userRef.current) {
             setSessions(data.sessions);
           }
         }
         const actionRes = await fetch('/api/voice/actions');
         if (actionRes.ok) {
           const actionData = await actionRes.json();
-          if (actionData.bookings) setBookings(actionData.bookings);
+          if (actionData.bookings && !userRef.current) setBookings(actionData.bookings);
           if (actionData.customers) setCustomers(actionData.customers);
-          if (actionData.actions) setActions(actionData.actions);
+          if (actionData.actions && !userRef.current) setActions(actionData.actions);
         }
       } catch (e) {
         console.warn('Backend fetch fallback to internal memory:', e);
@@ -132,8 +227,33 @@ export default function App() {
       voiceEngine.startSession();
     } else {
       voiceEngine.stopSession();
+
+      // Persist conversation session to Firestore if user is authenticated and messages exist
+      const msgs = voiceEngine.getMessages();
+      const currentToolCalls = voiceEngine.getToolCalls();
+      const currentActions = voiceEngine.getActions();
+
+      if (userRef.current && msgs.length > 0) {
+        const session: ConversationSession = {
+          id: `VO-SESS-${Date.now().toString().slice(-6)}`,
+          startTime: 'Just now',
+          duration: '1m 15s',
+          intent: voiceEngine.getCurrentIntent() || 'Operational Booking Request',
+          status: 'Completed',
+          messageCount: msgs.length,
+          toolCallsCount: currentToolCalls.length,
+          interruptionsCount: 1,
+          avgLatencyMs: 420,
+          summary: `Duplex voice call using ${selectedModel} with verified business actions.`,
+          outcome: currentActions.length > 0 ? currentActions[0].title : 'Inquiry Completed',
+          messages: msgs,
+          toolCalls: currentToolCalls,
+          actions: currentActions,
+        };
+        saveConversationToFirestore(userRef.current.uid, session);
+      }
     }
-  }, [agentState]);
+  }, [agentState, selectedModel]);
 
   const handleInterrupt = useCallback(() => {
     voiceEngine.handleUserInterruption();
@@ -157,6 +277,19 @@ export default function App() {
     setCollectedEntities({});
   }, []);
 
+  // Auth actions
+  const handleSignInGoogle = useCallback(async () => {
+    await signInWithGoogle();
+  }, []);
+
+  const handleSignInGuest = useCallback(async () => {
+    await signInAsGuest();
+  }, []);
+
+  const handleSignOut = useCallback(async () => {
+    await signOutUser();
+  }, []);
+
   // Synchronize theme with HTML document element, background styles, and meta theme-color
   useEffect(() => {
     try {
@@ -166,11 +299,11 @@ export default function App() {
     }
 
     const themeConfig = THEME_CONFIGS[theme] || THEME_CONFIGS.light;
-    
+
     // Update HTML & body background styles
     document.documentElement.style.backgroundColor = themeConfig.bgColor;
     document.body.style.backgroundColor = themeConfig.bgColor;
-    
+
     // Toggle dark class
     if (theme === 'light') {
       document.documentElement.classList.remove('dark');
@@ -224,20 +357,34 @@ export default function App() {
         onSelectTab={setActiveTab}
         agentState={agentState}
         currentTheme={theme}
+        user={user}
+        firestoreConnected={firestoreConnected}
+        selectedModel={selectedModel}
+        onSelectModel={setSelectedModel}
         onSelectTheme={setTheme}
+        onSignInGoogle={handleSignInGoogle}
+        onSignInGuest={handleSignInGuest}
+        onSignOut={handleSignOut}
       />
 
       {/* Main Workspace Area */}
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden relative z-10">
-        {/* Top Navigation Bar with Mobile Hamburger & Theme Switcher */}
+        {/* Top Navigation Bar with Google Sign In, Model Picker & Theme Switcher */}
         <TopBar
           activeTab={activeTab}
           agentState={agentState}
           currentTheme={theme}
+          user={user}
+          firestoreConnected={firestoreConnected}
+          selectedModel={selectedModel}
+          onSelectModel={setSelectedModel}
           onSelectTheme={setTheme}
           onToggleVoice={handleToggleVoice}
           onNavigate={setActiveTab}
           onOpenMenu={() => setIsMobileDrawerOpen(true)}
+          onSignInGoogle={handleSignInGoogle}
+          onSignInGuest={handleSignInGuest}
+          onSignOut={handleSignOut}
         />
 
         {/* Scrollable Content Viewport */}
@@ -260,6 +407,10 @@ export default function App() {
               audioLevels={audioLevels}
               currentIntent={currentIntent}
               collectedEntities={collectedEntities}
+              selectedModel={selectedModel}
+              onSelectModel={setSelectedModel}
+              user={user}
+              firestoreConnected={firestoreConnected}
               onToggleSession={handleToggleVoice}
               onInterrupt={handleInterrupt}
               onSendTextMessage={handleSendTextMessage}

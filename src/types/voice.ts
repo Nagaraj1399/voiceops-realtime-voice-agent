@@ -107,3 +107,5 @@ export interface ToolSchema {
     required: string[];
   };
 }
+
+export type VoiceModelType = 'gemini-3.8-live' | 'gemini-3.8-flash';
